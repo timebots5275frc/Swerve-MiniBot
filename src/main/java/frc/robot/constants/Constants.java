@@ -60,13 +60,13 @@ public final class Constants
         13); // RIGHT_REAR_STEER_ENCODER_ID 
 
       public static final SwerveModuleLocations SwerveModuleLocations = new SwerveModuleLocations(
-        ((29 / 2) - 3.25) * MathConstants.INCH_TO_METER, // LEFT_FRONT_WHEEL_X
+        ((29.0 / 2.0) - 3.25) * MathConstants.INCH_TO_METER, // LEFT_FRONT_WHEEL_X
         ((30 / 2) - 3.25) * MathConstants.INCH_TO_METER, // LEFT_FRONT_WHEEL_Y
-        ((29 / 2) - 3.25) * MathConstants.INCH_TO_METER, // RIGHT_FRONT_WHEEL_X
+        ((29.0 / 2.0) - 3.25) * MathConstants.INCH_TO_METER, // RIGHT_FRONT_WHEEL_X
         (-(30 / 2) + 3.25) * MathConstants.INCH_TO_METER, // RIGHT_FRONT_WHEEL_Y
-        (-(29 / 2) + 3.25) * MathConstants.INCH_TO_METER, // RIGHT_REAR_WHEEL_X
+        (-(29.0 / 2.0) + 3.25) * MathConstants.INCH_TO_METER, // RIGHT_REAR_WHEEL_X
         (-(30 / 2) + 3.25) * MathConstants.INCH_TO_METER, // RIGHT_REAR_WHEEL_Y
-        (-(29 / 2) + 3.25) * MathConstants.INCH_TO_METER, // LEFT_REAR_WHEEL_X
+        (-(29.0 / 2.0) + 3.25) * MathConstants.INCH_TO_METER, // LEFT_REAR_WHEEL_X
         ((30 / 2) - 3.25) * MathConstants.INCH_TO_METER); //LEFT_REAR_WHEEL_Y
 
       public static final Translation2d LEFT_FRONT_MODULE_POSITION = new Translation2d(DriveConstants.SwerveModuleLocations.LEFT_FRONT_WHEEL_X, DriveConstants.SwerveModuleLocations.LEFT_FRONT_WHEEL_Y);
@@ -77,10 +77,8 @@ public final class Constants
       public static final double WHEEL_RADIUS = 2.0 * 0.0254; // meters * 0.98
       public static final double WHEEL_CIRCUMFERENCE = 2.0 * Math.PI * WHEEL_RADIUS; // meters/revolution
 
-      public static final double MAX_DRIVE_SPEED = 3.5; // meters/second
-      public static final double MAX_STEER_RATE = .5; // rotations/second of a wheel for steer.
-      public static final double MAX_TWIST_RATE = .6 * 2.0 * Math.PI; // radians/second of the robot rotation.
-      public static final double CONTROLLER_TWIST_RATE = 2; // constant turn rate for using controller
+      public static final double MAX_DRIVE_SPEED = 8.0; // meters/second
+      public static final double MAX_TWIST_RATE = 2.0 * 2.0 * Math.PI; // radians/second of the robot rotation.
 
       // Drive motor gear ratio.
       // | Driving Gear | Driven Gear |
@@ -101,7 +99,7 @@ public final class Constants
       // Overall Gear Ration = 0.1171875
       // One rotation of the motor gives 0.1171875 rotations of the wheel.
       // 8.533 rotations of the motor gives one rotation of the wheel.
-      public static final double STEER_GEAR_RATIO = (15.0 / 32) * (10 / 40);
+      public static final double STEER_GEAR_RATIO = (15.0 / 32.0) * (10.0 / 40.0);
 
       public static final PID PID_Encoder_Steer = new PID(20, 10, 0);
       public static final PID PID_SparkMax_Steer = new PID(0.0001, 0, 0, 0, 0.00005);

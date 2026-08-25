@@ -9,6 +9,7 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.customTypes.Math.Vector2;
@@ -62,12 +63,23 @@ public class Input extends SubsystemBase {
     } else if (controllerInput.x != 0 || controllerInput.y != 0 || controllerTurn != 0) {
       usingJoystick = false;
     }
+
+    // Diagnostics: raw axis values, before deadzone/rescale. If a physical axis move
+    // doesn't move the matching number here, the problem is device mapping (Sim GUI
+    // Joysticks tab), not the drive code downstream of Input.
+    SmartDashboard.putBoolean("Input/UsingJoystick", usingJoystick);
+    SmartDashboard.putNumber("Input/RawJoystick X", rawJoystickInput.x);
+    SmartDashboard.putNumber("Input/RawJoystick Y", rawJoystickInput.y);
+    SmartDashboard.putNumber("Input/RawJoystick Twist", rawJoystickTwist);
+    SmartDashboard.putNumber("Input/RawController X", rawControllerInput.x);
+    SmartDashboard.putNumber("Input/RawController Y", rawControllerInput.y);
+    SmartDashboard.putNumber("Input/RawController Turn", rawControllerTurn);
   }
 
   void getRawJoystickInput()
   {
     rawJoystickInput = new Vector2(-driveJoystick.getY(), -driveJoystick.getX());
-    rawJoystickTwist = driveJoystick.getTwist();
+    rawJoystickTwist = -driveJoystick.getTwist();
 
     Throttle = (driveJoystick.getThrottle() / -2) + .5;
   }
@@ -85,7 +97,7 @@ public class Input extends SubsystemBase {
 
   void calculateControllerInput() {
     controllerInput = new Vector2(calculateInputWithDeadzone(rawControllerInput.x, Constants.ControllerConstants.DEADZONE_DRIVE), calculateInputWithDeadzone(rawControllerInput.y, Constants.ControllerConstants.DEADZONE_DRIVE));
-    controllerTurn = -calculateInputWithDeadzone(rawControllerTurn, Constants.ControllerConstants.DEADZONE_STEER);
+    controllerTurn = calculateInputWithDeadzone(rawControllerTurn, Constants.ControllerConstants.DEADZONE_STEER);
   }
 
   public double getThrottle() {

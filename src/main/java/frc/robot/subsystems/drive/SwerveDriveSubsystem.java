@@ -187,4 +187,13 @@ public class SwerveDriveSubsystem extends SubsystemBase {
       Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(list, config);
       return exampleTrajectory;
   }
+
+  /** Modules in the same order used everywhere else in this class: LF, RF, RR, LR. */
+  public SwerveModule[] getModules() {
+      return new SwerveModule[] { leftFrontSwerveModule, rightFrontSwerveModule, rightRearSwerveModule, leftRearSwerveModule };
+  }
+
+  public Pigeon2 getGyro() {
+      return pigeon2Gyro;
+  }
 }

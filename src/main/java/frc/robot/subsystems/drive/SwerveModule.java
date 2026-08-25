@@ -25,10 +25,10 @@ import frc.robot.constants.Constants.DriveConstants;
 public class SwerveModule {
 
     public SparkMax driveMotor;
-    private SparkMax steerMotor;
+    public SparkMax steerMotor;
     public RelativeEncoder driveNEOMotorEncoder; // NEO build-in Encoder
 
-    private CANcoder steerAngleEncoder;
+    public CANcoder steerAngleEncoder;
 
     private PIDController steerAnglePID;
     private SparkClosedLoopController steerMotorVelocityPID;
@@ -93,6 +93,13 @@ public class SwerveModule {
 
         steerMotorVelocityPID.setSetpoint(steerMotorRpm, ControlType.kVelocity);
 
+        // Always-on steer diagnostics -- unlike the drive numbers below, these aren't gated
+        // behind logValues, since teleop's drive() never passes true and this is exactly what
+        // you need to tell "steer PID isn't tracking" apart from "input isn't reaching the module".
+        SmartDashboard.putNumber(name + " SteerAngleActualDeg", steerAngleDegrees);
+        SmartDashboard.putNumber(name + " SteerAngleTargetDeg", desiredState.angle.getDegrees());
+        SmartDashboard.putNumber(name + " SteerMotorRpmCommand", steerMotorRpm);
+
         double driveMotorRpm = driveRpmFromSpeed(desiredState.speedMetersPerSecond);
 
         if (logValues) {
@@ -129,6 +136,6 @@ public class SwerveModule {
 
     public SwerveModulePosition getPosition() {
         double distance = driveNEOMotorEncoder.getPosition();
-        return new SwerveModulePosition(distance, new Rotation2d(Math.toRadians(steerAngleEncoder.getAbsolutePosition().getValueAsDouble())));
+        return new SwerveModulePosition(distance, new Rotation2d(Math.toRadians(steerAngleEncoder.getAbsolutePosition().getValueAsDouble() * 360)));
     }
 }

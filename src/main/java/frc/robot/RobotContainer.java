@@ -81,9 +81,14 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand(SendableChooser<Command> autonChooser) 
+  public Command getAutonomousCommand(SendableChooser<Command> autonChooser)
   {
 
-    return autonChooser.getSelected(); 
+    return autonChooser.getSelected();
+  }
+
+  /** Only used to wire up the physics simulation from {@link Robot#simulationInit()}. */
+  public SwerveDriveSubsystem getDrive() {
+    return drive;
   }
 }
