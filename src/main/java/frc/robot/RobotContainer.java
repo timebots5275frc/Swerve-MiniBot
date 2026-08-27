@@ -4,11 +4,13 @@
 
 package frc.robot;
 
+import frc.robot.commands.ChangeNumberCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.OperatorConstants;
 
 import frc.robot.subsystems.Input;
+import frc.robot.subsystems.NumberSubsystem;
 import frc.robot.subsystems.drive.SwerveDriveSubsystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -37,6 +39,7 @@ public class RobotContainer {
     private final CommandXboxController xboxController;
     private final Input input;
     private final SwerveDriveSubsystem drive;
+    private final NumberSubsystem number;
 
     
 
@@ -47,6 +50,7 @@ public class RobotContainer {
     xboxController = new CommandXboxController(OperatorConstants.XBOX_CONTROLLER_PORT);
     input = new Input(joy, xboxController.getHID());
     drive = new SwerveDriveSubsystem();
+    number = new NumberSubsystem();
 
     autonChooser.setDefaultOption("Nothing", null);
 
@@ -74,6 +78,7 @@ public class RobotContainer {
     xboxController.povDown().onTrue(new InstantCommand(input::decrementTranslationControllerSpeed));
     xboxController.povRight().onTrue(new InstantCommand(input::incrementTwistControllerSpeed));
     xboxController.povLeft().onTrue(new InstantCommand(input::decrementTwistControllerSpeed));
+    xboxController.y().whileTrue(new ChangeNumberCommand(number, 67));
   }
 
   /**
