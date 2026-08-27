@@ -59,22 +59,24 @@ public final class Constants
         12, // LEFT_REAR_STEER_ENCODER_ID 
         13); // RIGHT_REAR_STEER_ENCODER_ID 
 
+        //21.5 in width from center of wheel to center of wheel
+        //same for length
       public static final SwerveModuleLocations SwerveModuleLocations = new SwerveModuleLocations(
-        ((29.0 / 2.0) - 3.25) * MathConstants.INCH_TO_METER, // LEFT_FRONT_WHEEL_X
-        ((30 / 2) - 3.25) * MathConstants.INCH_TO_METER, // LEFT_FRONT_WHEEL_Y
-        ((29.0 / 2.0) - 3.25) * MathConstants.INCH_TO_METER, // RIGHT_FRONT_WHEEL_X
-        (-(30 / 2) + 3.25) * MathConstants.INCH_TO_METER, // RIGHT_FRONT_WHEEL_Y
-        (-(29.0 / 2.0) + 3.25) * MathConstants.INCH_TO_METER, // RIGHT_REAR_WHEEL_X
-        (-(30 / 2) + 3.25) * MathConstants.INCH_TO_METER, // RIGHT_REAR_WHEEL_Y
-        (-(29.0 / 2.0) + 3.25) * MathConstants.INCH_TO_METER, // LEFT_REAR_WHEEL_X
-        ((30 / 2) - 3.25) * MathConstants.INCH_TO_METER); //LEFT_REAR_WHEEL_Y
+        (21.5 / 2.0) * MathConstants.INCH_TO_METER, // LEFT_FRONT_WHEEL_X
+        (21.5 / 2.0) * MathConstants.INCH_TO_METER, // LEFT_FRONT_WHEEL_Y
+        (21.5 / 2.0) * MathConstants.INCH_TO_METER, // RIGHT_FRONT_WHEEL_X
+        (21.5 / 2.0) * -MathConstants.INCH_TO_METER, // RIGHT_FRONT_WHEEL_Y
+        (21.5 / 2.0) * -MathConstants.INCH_TO_METER, // RIGHT_REAR_WHEEL_X
+        (21.5 / 2.0) * -MathConstants.INCH_TO_METER, // RIGHT_REAR_WHEEL_Y
+        (21.5 / 2.0) * -MathConstants.INCH_TO_METER, // LEFT_REAR_WHEEL_X
+        (21.5 / 2.0) * MathConstants.INCH_TO_METER); //LEFT_REAR_WHEEL_Y
 
       public static final Translation2d LEFT_FRONT_MODULE_POSITION = new Translation2d(DriveConstants.SwerveModuleLocations.LEFT_FRONT_WHEEL_X, DriveConstants.SwerveModuleLocations.LEFT_FRONT_WHEEL_Y);
       public static final Translation2d RIGHT_FRONT_MODULE_POSITION = new Translation2d(DriveConstants.SwerveModuleLocations.RIGHT_FRONT_WHEEL_X, DriveConstants.SwerveModuleLocations.RIGHT_FRONT_WHEEL_Y);    
       public static final Translation2d RIGHT_REAR_MODULE_POSITION = new Translation2d(DriveConstants.SwerveModuleLocations.RIGHT_REAR_WHEEL_X, DriveConstants.SwerveModuleLocations.RIGHT_REAR_WHEEL_Y);
       public static final Translation2d LEFT_REAR_MODULE_POSITION = new Translation2d(DriveConstants.SwerveModuleLocations.LEFT_REAR_WHEEL_X, DriveConstants.SwerveModuleLocations.LEFT_REAR_WHEEL_Y);
 
-      public static final double WHEEL_RADIUS = 2.0 * 0.0254; // meters * 0.98
+      public static final double WHEEL_RADIUS = 2.0 * MathConstants.INCH_TO_METER; // meters * 0.98
       public static final double WHEEL_CIRCUMFERENCE = 2.0 * Math.PI * WHEEL_RADIUS; // meters/revolution
 
       public static final double MAX_DRIVE_SPEED = 8.0; // meters/second
