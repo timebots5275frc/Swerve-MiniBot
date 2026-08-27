@@ -34,7 +34,7 @@ public class SwerveModule {
     private SparkClosedLoopController steerMotorVelocityPID;
     private SparkClosedLoopController driveMotorVelocityPID;
 
-    public SwerveModule(int driveMotorID, int steerMotorID, int steerEncoderId) {
+    public SwerveModule(int driveMotorID, int steerMotorID, int steerEncoderId, boolean invertDrive) {
 
         driveMotor = new SparkMax(driveMotorID, MotorType.kBrushless);
         steerMotor = new SparkMax(steerMotorID, MotorType.kBrushless);
@@ -53,10 +53,12 @@ public class SwerveModule {
         steerMotorVelocityPID = steerMotor.getClosedLoopController();
         driveMotorVelocityPID = driveMotor.getClosedLoopController();
 
-        // This must come after the PID setting because kResetSafeParameters resets all values to safe defaults before setting anything
+        // This must come after the PID setting because kResetSafeParameters resets all values to safe defaults before setting anything.
+        // invertDrive is per-module because the left and right sides of the chassis are physical
+        // mirror images of each other -- one hardcoded inversion can only ever be correct for one side.
         SparkMaxConfig driveEncoderConfig = new SparkMaxConfig();
         driveEncoderConfig
-            .inverted(true)
+            .inverted(invertDrive)
             .encoder.positionConversionFactor(DriveConstants.DRIVE_GEAR_RATIO * DriveConstants.WHEEL_CIRCUMFERENCE);
         driveMotor.configure(driveEncoderConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 

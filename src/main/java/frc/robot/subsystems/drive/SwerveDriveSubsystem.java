@@ -43,10 +43,12 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 
 
   public SwerveDriveSubsystem() {
-    leftFrontSwerveModule = new SwerveModule(DriveConstants.SwerveCanIDs.LEFT_FRONT_DRIVE_MOTOR_ID, DriveConstants.SwerveCanIDs.LEFT_FRONT_STEER_MOTOR_ID, DriveConstants.SwerveCanIDs.LEFT_FRONT_STEER_ENCODER_ID);
-    rightFrontSwerveModule = new SwerveModule(DriveConstants.SwerveCanIDs.RIGHT_FRONT_DRIVE_MOTOR_ID, DriveConstants.SwerveCanIDs.RIGHT_FRONT_STEER_MOTOR_ID, DriveConstants.SwerveCanIDs.RIGHT_FRONT_STEER_ENCODER_ID);
-    rightRearSwerveModule = new SwerveModule(DriveConstants.SwerveCanIDs.RIGHT_REAR_DRIVE_MOTOR_ID, DriveConstants.SwerveCanIDs.RIGHT_REAR_STEER_MOTOR_ID, DriveConstants.SwerveCanIDs.RIGHT_REAR_STEER_ENCODER_ID);
-    leftRearSwerveModule = new SwerveModule(DriveConstants.SwerveCanIDs.LEFT_REAR_DRIVE_MOTOR_ID, DriveConstants.SwerveCanIDs.LEFT_REAR_STEER_MOTOR_ID, DriveConstants.SwerveCanIDs.LEFT_REAR_STEER_ENCODER_ID);
+    // Left/right sides are physical mirror images of each other, so the drive motor invert
+    // flag has to flip between them -- see SwerveModule's constructor.
+    leftFrontSwerveModule = new SwerveModule(DriveConstants.SwerveCanIDs.LEFT_FRONT_DRIVE_MOTOR_ID, DriveConstants.SwerveCanIDs.LEFT_FRONT_STEER_MOTOR_ID, DriveConstants.SwerveCanIDs.LEFT_FRONT_STEER_ENCODER_ID, false);
+    rightFrontSwerveModule = new SwerveModule(DriveConstants.SwerveCanIDs.RIGHT_FRONT_DRIVE_MOTOR_ID, DriveConstants.SwerveCanIDs.RIGHT_FRONT_STEER_MOTOR_ID, DriveConstants.SwerveCanIDs.RIGHT_FRONT_STEER_ENCODER_ID, true);
+    rightRearSwerveModule = new SwerveModule(DriveConstants.SwerveCanIDs.RIGHT_REAR_DRIVE_MOTOR_ID, DriveConstants.SwerveCanIDs.RIGHT_REAR_STEER_MOTOR_ID, DriveConstants.SwerveCanIDs.RIGHT_REAR_STEER_ENCODER_ID, true);
+    leftRearSwerveModule = new SwerveModule(DriveConstants.SwerveCanIDs.LEFT_REAR_DRIVE_MOTOR_ID, DriveConstants.SwerveCanIDs.LEFT_REAR_STEER_MOTOR_ID, DriveConstants.SwerveCanIDs.LEFT_REAR_STEER_ENCODER_ID, false);
 
     startingSwerveModulePositions = new SwerveModulePosition[] {leftFrontSwerveModule.getPosition(), rightFrontSwerveModule.getPosition(), rightRearSwerveModule.getPosition(), leftRearSwerveModule.getPosition()};
     currentSwerveModulePositions = startingSwerveModulePositions;
