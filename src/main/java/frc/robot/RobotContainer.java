@@ -72,6 +72,7 @@ public class RobotContainer {
 
     drive.setDefaultCommand(new DriveCommand(drive, input, true));
     xboxController.y().onTrue(new DriveCommand(drive, input, false));
+    xboxController.a().onTrue(new DriveCommand(drive, input, true));
 
     // D-pad up/down changes the Xbox controller's drive speed percentage.
     xboxController.povUp().onTrue(new InstantCommand(input::incrementTranslationControllerSpeed));
