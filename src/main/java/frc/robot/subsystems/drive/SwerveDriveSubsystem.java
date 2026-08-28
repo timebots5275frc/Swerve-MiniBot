@@ -18,6 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants.DriveConstants;
@@ -40,7 +41,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
   
   Pigeon2 pigeon2Gyro = new Pigeon2(DriveConstants.PIGEON_2_ID);
 
-
+private final Field2d field = new Field2d();
 
   public SwerveDriveSubsystem() {
     // Left/right sides are physical mirror images of each other, so the drive motor invert
@@ -59,6 +60,8 @@ public class SwerveDriveSubsystem extends SubsystemBase {
                                            DriveConstants.LEFT_REAR_MODULE_POSITION);
 
     odometry = new SwerveDriveOdometry(kinematics, this.getHeading(), startingSwerveModulePositions);
+
+    SmartDashboard.putData("Field", field);
   }
 
   @Override
@@ -66,6 +69,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     currentSwerveModulePositions = new SwerveModulePosition[] { leftFrontSwerveModule.getPosition(), rightFrontSwerveModule.getPosition(), rightRearSwerveModule.getPosition(), leftRearSwerveModule.getPosition(), };
     updateOdometry();
+    field.setRobotPose(this.getPose());
   }
 
   /**
