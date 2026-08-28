@@ -105,7 +105,7 @@ public final class Constants
 
       public static final PID PID_Encoder_Steer = new PID(20, 10, 0);
       public static final PID PID_SparkMax_Steer = new PID(0.0001, 0, 0, 0, 0.00005);
-      public static final PID PID_SparkMax_Drive = new PID(0.0003, 0, 0, 0, 0.00016);
+      public static final PID PID_SparkMax_Drive = new PID(0.00008, 0, 0, 0, 0.0001);
   }
   public static final class MathConstants
   {

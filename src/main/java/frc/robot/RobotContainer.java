@@ -74,6 +74,8 @@ public class RobotContainer {
     xboxController.povDown().onTrue(new InstantCommand(input::decrementTranslationControllerSpeed));
     xboxController.povRight().onTrue(new InstantCommand(input::incrementTwistControllerSpeed));
     xboxController.povLeft().onTrue(new InstantCommand(input::decrementTwistControllerSpeed));
+
+    xboxController.x().onTrue(new InstantCommand(drive::resetPigeon));
   }
 
   /**
