@@ -10,6 +10,7 @@ import frc.robot.constants.Constants.OperatorConstants;
 
 import frc.robot.subsystems.Input;
 import frc.robot.subsystems.drive.SwerveDriveSubsystem;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,6 +43,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer(SendableChooser<Command> autonChooser) {
+    CameraServer.startAutomaticCapture();
+
     bBoard = new GenericHID(OperatorConstants.BUTTON_BOARD_PORT);
     joy = new Joystick(OperatorConstants.JOYSTICK_PORT);
     xboxController = new CommandXboxController(OperatorConstants.XBOX_CONTROLLER_PORT);
@@ -68,6 +71,7 @@ public class RobotContainer {
   private void configureBindings() {
 
     drive.setDefaultCommand(new DriveCommand(drive, input, true));
+    xboxController.y().onTrue(new DriveCommand(drive, input, false));
 
     // D-pad up/down changes the Xbox controller's drive speed percentage.
     xboxController.povUp().onTrue(new InstantCommand(input::incrementTranslationControllerSpeed));
